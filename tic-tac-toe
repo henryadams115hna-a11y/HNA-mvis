@@ -1,0 +1,141 @@
+grid = ["[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]"]
+spoad = 0
+winning_combos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+]
+def place_grid():
+    spoad = 0
+    for spot in grid:
+        print(spot,end="")
+        spoad += 1
+        if spoad == 3:
+            spoad = 0
+            print()
+
+
+def place_x():
+    placex = int(input("Where should X be? (1-9): "))
+    placex -= 1
+    if grid[placex] != "[X]" and grid[placex] != "[O]":
+        grid.pop(placex)
+        grid.insert(placex, "[X]")
+    else:
+        print("There is already O/X there.")
+        print()
+        place_x()
+
+def place_o():
+    placeo = int(input("Where should O be? (1-9): "))
+    placeo -= 1
+    if grid[placeo] != "[X]" and grid[placeo] != "[O]":
+        grid.pop(placeo)
+        grid.insert(placeo, "[O]")
+    else:
+        print("There is already O/X there.")
+        print()
+        place_o()
+
+def play():
+    wonx = False
+    wono = False
+    for i in range(4):
+        place_grid()
+        print()
+        place_x()
+        print()
+        for combo in winning_combos:
+            a, b, c = combo
+            if grid[a] == grid[b] == grid[c] == "[X]":
+                wonx = True
+                break
+        if wonx:
+            print()
+            print()
+            place_grid()
+            print()
+            print()
+            print("X HAS WON!!!!!")
+            break
+        
+        place_grid()
+        print()
+        place_o()
+        print()
+        for combo in winning_combos:
+            a, b, c = combo
+            if grid[a] == grid[b] == grid[c] == "[O]":
+                wono = True
+                break
+        if wono:
+            print()
+            print()
+            place_grid()
+            print()
+            print()
+            print("O HAS WON!!!!!")
+            break
+    if wonx == False:
+        place_grid()
+        print()
+        place_x()
+        print()
+        for combo in winning_combos:
+            a, b, c = combo
+            if grid[a] == grid[b] == grid[c] == "[X]":
+                wonx = True
+                break
+        if wonx:
+            print()
+            print()
+            place_grid()
+            print()
+            print()
+            print("X HAS WON!!!!!")
+        else:
+            print()
+            print()
+            place_grid()
+            print()
+            print()
+            print("Nobody won")
+    again()
+            
+
+
+def again():
+    playe = input("Do you want to play again? (y/n): ")
+    if playe == "y":
+        play
+    elif playe == "n":
+        print("O ok goodbye then")
+    else:
+        print("You didn't answer my question correctly, I will ask again now.")
+        again()
+
+
+
+def start():
+    playing = input("Do you want to play? (y/n): ")
+    if playing == "y":
+        play()
+    elif playing == "n":
+        print("Bruh ok")
+    else:
+        print("????? I'll ask again because I don't understand")
+        start()
+
+
+
+
+            
+
+    
+
+start()
